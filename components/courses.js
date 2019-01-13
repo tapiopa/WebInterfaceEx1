@@ -31,13 +31,11 @@ router.get('/:courseID?', (req, res) => {
 //POST
 router.post('/', (req, res) => {
     courses.push(req.body);
-    // res.json(courses);
     res.send('COURSES POST OK');
 });
 
 //PUT
 router.put('/', (req, res) => {
-    // console.log('COURSES PUT');
     const course = req.body;
     let foundCourse = null;
     courses.forEach(crs => {
@@ -48,7 +46,6 @@ router.put('/', (req, res) => {
         }
     });
     if (foundCourse) {
-        // res.json(foundCourse);
         res.send('COURSES PUT OK');
     } else {
         res.send('NOT FOUND');

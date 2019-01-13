@@ -36,8 +36,6 @@ router.post('/', (req, res) => {
 
 //PUT
 router.put('/', (req, res) => {
-    // console.log('GRADES PUT');
-    // console.log(req.body);
     const editedGrade = req.body;
     let foundGrade = null;
     grades.forEach(grade => {
@@ -49,7 +47,6 @@ router.put('/', (req, res) => {
         }
     });
     if (foundGrade) {
-        // res.json(foundGrade);
         res.send('GRADES PUT OK');
     } else {
         res.send('NOT FOUND');
