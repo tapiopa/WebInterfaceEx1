@@ -1,0 +1,56 @@
+const express = require('express');
+const router = express.Router();
+
+let courses = [{
+    courseID: 1,
+    courseName: "Test course name",
+    description: "Test description" 
+}];
+
+//GET
+router.get('/:courseID', (req, res) => {
+    if (req.params.courseID) {
+	const id = req.params.courseID;
+	courses.foreach(course => {
+	    if (course.courseID == id) {
+		res.json(course);
+	    }
+	});
+    } else {
+	res.json(courses);
+    }
+});
+
+//POST
+router.post('/', (req, res) => {
+    courses.push(req.body);
+    res.send('OK');
+});
+
+//PUT
+router.put('/', (req, res) => {
+    const course = req.body;
+    courses.foreach(crs => {
+	if (crs.courseID === course.courseID) {
+	    crs.courseName = course.courseName;
+	    crs.description = course.description;
+	}
+	res.send('OK');
+    });
+    res.send('NOT FOUND');
+});
+
+//DELETE
+router.delete((req, res) => {
+    let index = -1;
+    courses.forEach(course, idx => {
+       if (course.courseID = req.params.courseID) {
+	   index = idx;
+       }
+    });
+    if (index >= 0) {
+	courses = courses.splice(index, 1);
+	res.send('OK');
+    }
+    res.send('NOT FOUND');
+});

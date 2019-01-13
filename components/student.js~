@@ -1,0 +1,60 @@
+const express = require('express');
+const router = express.Router();
+
+let students = [{
+    studentID: 1,
+    classID: 1,
+    studentName: "John Doe",
+    address: "Testikatu 1" 
+}];
+
+//GET
+router.get('/:studentID', (req, res) => {
+    if (req.params.studentID) {
+	const id = req.params.studentID;
+	students.foreach(student => {
+	    if (student.studentID == id) {
+		res.json(student);
+	    }
+	});
+    } else {
+	res.json(students);
+    }
+});
+
+//POST
+router.post('/', (req, res) => {
+    students.push(req.body);
+    res.send('OK');
+});
+
+//PUT
+router.put('/', (req, res) => {
+    const student = req.body;
+    students.foreach(stud => {
+	if (stud.studentID === student.id) {
+	    stud.classID = student.classID;
+	    stud.studentName = student.studentName;
+	    stud.address = student.address;
+	}
+	res.send('OK');
+    });
+    res.send('NOT FOUND');
+});
+
+//DELETE
+router.delete((req, res) => {
+    let index = -1;
+    students.forEach(student, idx => {
+       if (student.studentID = req.params.studentID) {
+	   index = idx;
+       }
+    });
+    if (index >= 0) {
+	students = students.splice(index, 1);
+	res.send('OK');
+    }
+    res.send('NOT FOUND');
+});
+
+module.export = router;

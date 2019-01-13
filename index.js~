@@ -1,0 +1,15 @@
+const express = require('express');
+const app = express();
+const port = 3000;
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+const student = require('./components/student');
+const course = require('./components/course');
+const grade  = require('./components/grade');
+
+app.use('/students', student);
+app.use('/courses', course);
+app.use('/grades', grade);
+
+app.listen(port, () => console.log(`Excercise app. Listening on port ${port}.`);
