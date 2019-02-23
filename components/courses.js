@@ -1,11 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
-let courses = [{
-    courseID: 1,
-    courseName: "Test course name",
-    description: "Test description"
-}];
+let c = 1;
+let courses = [
+    {
+        courseID: c++,
+        courseName: "Test course name",
+        description: "Test description"
+    },
+    {
+        courseID: c++,
+        courseName: "Test course name2",
+        description: "Test description"
+    },
+    {
+        courseID: c++,
+        courseName: "Test course name3",
+        description: "Test description"
+    }
+];
 
 //GET
 router.get('/:courseID?', (req, res) => {
@@ -30,7 +43,9 @@ router.get('/:courseID?', (req, res) => {
 
 //POST
 router.post('/', (req, res) => {
-    courses.push(req.body);
+    const course = req.body;
+    course.courseID = c++;
+    courses.push(course);
     res.send('COURSES POST OK');
 });
 

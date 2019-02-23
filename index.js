@@ -3,6 +3,9 @@ const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
 
+let s = 1;
+
+
 app.use(bodyParser.json());
 
 const students = require('./components/students');

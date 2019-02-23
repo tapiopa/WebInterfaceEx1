@@ -1,22 +1,37 @@
 const express = require('express');
 const router = express.Router();
 
-let grades = [{
-    gradeID: 1,
-    studentID: 1,
-    courseID: 1,
-    gradeName: "1",
-}];
+let g = 1;
+let grades = [
+    {
+        gradeID: g++,
+        studentID: 1,
+        courseID: 1,
+        gradeName: "1",
+    },
+    {
+        gradeID: g++,
+        studentID: 1,
+        courseID: 1,
+        gradeName: "1",
+    },
+    {
+        gradeID: g++,
+        studentID: 1,
+        courseID: 1,
+        gradeName: "1",
+    }
+];
 
 //GET
 router.get('/:gradeID?', (req, res) => {
     if (req.params.gradeID) {
         const id = req.params.gradeID;
-        let foundGrade = null;
-        grades.forEach(grade => {
+        let foundGrade = grades.find(grade => {
             if (grade.gradeID == id) {
-                foundGrade = grade;
+                return true;
             }
+            return false;
         });
         if (foundGrade) {
             res.json(foundGrade);
@@ -30,7 +45,9 @@ router.get('/:gradeID?', (req, res) => {
 
 //POST
 router.post('/', (req, res) => {
-    grades.push(req.body);
+    const grade = req.body;
+    grade.gradeID = g++;
+    grades.push(grade);
     res.send('GRADES POST OK');
 });
 

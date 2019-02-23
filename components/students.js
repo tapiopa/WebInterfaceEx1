@@ -1,12 +1,28 @@
 const express = require('express');
 let router = express.Router();
 
-let students = [{
-    studentID: 1,
-    classID: "DIN",
-    studentName: "John Doe",
-    address: "Testikatu 1"
-}];
+let s = 1;
+
+const students = [
+    {
+        studentID: s++,
+        classID: "DIN",
+        studentName: "John Doe",
+        address: "Testikatu 1"
+    },
+    {
+        studentID: s++,
+        classID: "DIN",
+        studentName: "Jane Doe",
+        address: "Testikatu 2"
+    },
+    {
+        studentID: s++,
+        classID: "DIN",
+        studentName: "John Smith",
+        address: "Testikatu 3"
+    }
+];
 
 //GET
 router.get('/:studentID?', (req, res) => {
@@ -32,7 +48,9 @@ router.get('/:studentID?', (req, res) => {
 
 //POST
 router.post('/', (req, res) => {
-    students.push(req.body);
+    const student = req.body;
+    student.studentID = s++;
+    students.push(student);
     res.send('STUDENTS POST OK');
 });
 
@@ -49,7 +67,7 @@ router.put('/', (req, res) => {
         }
     });
     if (editedStudent) {
-        res.send('STUDENTS PUT OK')
+        res.send('STUDENTS PUT OK');
     } else {
         res.send('NOT FOUND');
     }
